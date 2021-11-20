@@ -8,7 +8,7 @@ import random
 pygame.init()
 # Global Constants
 SCREEN_HEIGHT = 500
-SCREEN_WIDTH = 1250
+SCREEN_WIDTH = 1280
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))  # the_screan where we gonna display
 
 # import the images
@@ -25,7 +25,7 @@ JUMPING = pygame.image.load(os.path.join("Assets/Dinos", "DinoJump.png"))
 
 BG = pygame.image.load(os.path.join("Assets/other", "Track.png"))
 
-FONT = pygame.font.Font('freesansbold.ttf', 20)
+FONT = pygame.font.SysFont("inkfree", 20)
 
 
 class Dinosaure:
@@ -121,7 +121,7 @@ def main():
         points += 1
         if points % 100 == 0:
             game_speed += 1  # to this rate we calculate the points
-        text = FONT.render(f'Your Points =   {str(points)}', True, (0, 0, 0))
+        text = FONT.render(f'Your Points =   {str(points)}', True, (255, 0, 0))
 
         SCREEN.blit(text, (950, 50))  # 81 and 82 to show the points on the screen
 
@@ -131,9 +131,9 @@ def main():
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
         SCREEN.blit(BG, (x_pos_bg, y_pos_bg))
-        SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
+        SCREEN.blit(BG, (image_width+2+ x_pos_bg,2+y_pos_bg))
         if x_pos_bg <= -image_width:
-            x_pos_bg = 0
+            x_pos_bg =100
         x_pos_bg -= game_speed
 
     run = True
