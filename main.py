@@ -64,8 +64,31 @@ class Dinosaure:
 
 
 def main():
+    global  game_speed, x_pos_bg , y_pos_bg, points
+
     clock = pygame.time.Clock()
+    points =0
     dinosaures = [Dinosaure()]
+    x_pos_bg= 0
+    y_pos_bg =380
+    game_speed =20
+
+    def score():
+        global points, game_speed
+        points += 1
+        if points % 100 == 0:
+            game_speed += 1 # to this rate we calculate the points
+        text = FONT.render(f'Points:  {str(points)}', True, (0, 0, 0))
+        SCREEN.blit(text, (950, 50)) # 81 and 82 to show the points on the screen
+
+    def background():  #it makes the background looks like it's movin'
+        global x_pos_bg, y_pos_bg
+        image_width = BG.get_width()
+        SCREEN.blit(BG, (x_pos_bg, y_pos_bg))
+        SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
+        if x_pos_bg <= -image_width:
+            x_pos_bg = 0
+        x_pos_bg -= game_speed
     run = True
     while run:
         for event in pygame.event.get():
@@ -82,8 +105,11 @@ def main():
             if user_input[pygame.K_SPACE]:
                 dinos.dino_jup = True
                 dinos.dino_run = False
+        score()
+        background()
         clock.tick(30)
         pygame.display.update()
 
 
 main()  # here we are calling the main methode at this rate if i run my code we'll get a blank screen so we will add the class DINOSAUR
+
